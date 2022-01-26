@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { PageContent, Card, Button } from 'bumbag';
+import { PageContent, Card, Button, Column, Columns } from 'bumbag';
 
 import CharacterCard from '../components/CharacterCard/CharacterCard';
 import api from '../api/api';
 
-async function fetch_characters_at_page() {
-    /* calls function that retrieves api data */
-    const data = api.fetch_characters_at_page(1);
-    //console.log(data)
-}
-
 async function populate_character_cards() {
-    //data.results is where all the objects are
-    const characters = await api.fetch_characters_at_page(1);    
 
+    const characters = await api.fetch_characters_at_page(1);    
     const characterCards = [];
 
     for (let character of characters.results) {
-        const card = (
-          <CharacterCard title={character.name}> info about {character.name} </CharacterCard>
-        );
+        var card = {
+            name: character.name,
+            id: character.id
+        }
         characterCards.push(card);
     }
 
@@ -28,19 +22,27 @@ async function populate_character_cards() {
 
 export default function Home() {
     const [characterCards, setCharacterCards] = useState([]);
+    const card_column_spread = 3;
 
     /* calls function that retrieves api data */
     useEffect(async () => { 
-        //const data = await api.fetch_characters_at_page();
-        //console.log(data.results)
         const cards = await populate_character_cards()
         setCharacterCards(cards)
-    });
+    },[]);
 
+    /* iterates through objects in state, and creates a new card for each object */
     return (
-        <PageContent>        
-            <CharacterCard title="test"> here is some text in the card </CharacterCard>
-            {characterCards}
+        <PageContent width="90%">        
+            <Columns>
+                {characterCards.map(card => (
+                    <Column key={card.name} spread={card_column_spread} height="250px">
+                        <CharacterCard
+                            title={card.name}
+                            id={card.id}
+                        />
+                    </Column>
+                ))}
+            </Columns>
         </PageContent>
 
     );

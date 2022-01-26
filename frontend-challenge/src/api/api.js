@@ -7,6 +7,15 @@ const api = {
         console.log(characters)
 
         return(characters)
+    },
+    /* function to get list of characters from api */
+    async fetch_character_by_id(character_id) {
+        const response = await fetch('https://rickandmortyapi.com/api/character/'+character_id)
+
+        const character_info = await response.json();
+        console.log(character_info)
+
+        return(character_info)
     }
 }
 

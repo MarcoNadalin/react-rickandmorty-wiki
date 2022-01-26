@@ -1,10 +1,23 @@
 import React from 'react';
-import { Box, Card } from 'bumbag';
+import { Link } from 'react-router-dom';
+
+import { Box, Card, CardContent, CardHeader, Heading } from 'bumbag';
 
 export default function CharacterCard(props) {
     return (
-        <Card title={"Name: " + props.title}>
-            this is some other text in the title
+        <Card height="200px">
+            <Link to={{
+                pathname: '/character',
+                search: '?id='+props.id
+            }}>
+                <CardHeader>
+                    <Heading use="h6"> {props.title} </Heading>
+                </CardHeader>
+            </Link>
+
+            <CardContent>
+                other card content
+            </CardContent>
         </Card>
     );
 }
