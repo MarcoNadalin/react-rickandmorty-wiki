@@ -30,7 +30,7 @@ export default function Character(props) {
     console.log(character)
 
     return (
-        <PageContent>
+        <PageContent backgroundColor="primary">
             <Heading>
                 {character.name}
             </Heading>

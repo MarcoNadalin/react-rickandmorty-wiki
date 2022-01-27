@@ -35,7 +35,7 @@ export default function Home() {
 
     /* iterates through objects in state, and creates a new card for each object */
     return (
-        <Box alignX="center" >
+        <Box alignX="center" backgroundColor="primary">
             <Box width="80%">        
                 <Columns alignX="center">
                     {characterCards.map(card => (

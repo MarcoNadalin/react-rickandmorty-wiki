@@ -1,24 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
-import { Box, Card, CardContent, CardHeader, Heading, Group, Image, Text, List } from 'bumbag';
+import { Box, Card, CardContent, CardHeader, Heading, Group, Image, Text, List, Link} from 'bumbag';
 
 export default function CharacterCard(props) {
     console.log(props)
     return (
         <Group orientation="horizontal">
-            <Card height="200px">
+            <Card height="200px" backgroundColor="secondary">
                 <Image src={props.image} alt={props.title+"_image"} fit="contain" height="150px" width="150px"/>
             </Card>
-            <Card height="200px" width="100%">
-                <Link to={{
-                    pathname: '/character',
-                    search: '?id='+props.id
-                }}>
-                    <CardHeader>
-                        <Heading use="h5"> {props.title} </Heading>
-                    </CardHeader>
-                </Link>
+            <Card height="200px" width="100%" backgroundColor="secondary">
+                
+                <CardHeader>
+                    <Link.Block href={"/character?id="+props.id} focus="title_hover">
+                        <Link> {props.title} </Link>
+                    </Link.Block>
+                    
+                </CardHeader>
 
                 <CardContent>
                     <List>   
