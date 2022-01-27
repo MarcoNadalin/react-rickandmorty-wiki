@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PageContent, Card, Button, Column, Columns } from 'bumbag';
+import { Box, Card, Button, Column, Columns } from 'bumbag';
 
 import CharacterCard from '../components/CharacterCard/CharacterCard';
 import api from '../api/api';
@@ -12,7 +12,10 @@ async function populate_character_cards() {
     for (let character of characters.results) {
         var card = {
             name: character.name,
-            id: character.id
+            id: character.id,
+            image: character.image,
+            location: character.location,
+            status: character.status
         }
         characterCards.push(card);
     }
@@ -22,7 +25,7 @@ async function populate_character_cards() {
 
 export default function Home() {
     const [characterCards, setCharacterCards] = useState([]);
-    const card_column_spread = 3;
+    const card_column_spread = 5;
 
     /* calls function that retrieves api data */
     useEffect(async () => { 
@@ -32,18 +35,24 @@ export default function Home() {
 
     /* iterates through objects in state, and creates a new card for each object */
     return (
-        <PageContent width="90%">        
-            <Columns>
-                {characterCards.map(card => (
-                    <Column key={card.name} spread={card_column_spread} height="250px">
-                        <CharacterCard
-                            title={card.name}
-                            id={card.id}
-                        />
-                    </Column>
-                ))}
-            </Columns>
-        </PageContent>
+        <Box alignX="center" >
+            <Box width="80%">        
+                <Columns alignX="center">
+                    {characterCards.map(card => (
+                        <Column key={card.name} spread={card_column_spread} height="250px">
+                            <CharacterCard
+                                title={card.name}
+                                id={card.id}
+                                image={card.image}
+                                location={card.location}
+                                status={card.status}
+                            />
+                        </Column>
+                    ))}
+                </Columns>
+            </Box> 
+        </Box>
+
 
     );
 }
